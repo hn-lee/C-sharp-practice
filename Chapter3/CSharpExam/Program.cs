@@ -83,8 +83,8 @@ namespace CSharpExam
                     throw new Exception();
                 }
             }
-
         }
+
         public int number2
         {
             get => _number2;
@@ -230,11 +230,48 @@ namespace CSharpExam
     /// </summary>
     public class Display
     {
-        int input;
-        int size;
+        int _input;
+        int _size;
+
+        public int input
+        {
+            get => _input;
+            set
+            {
+                if (value >= 0 && value <= 2) _input = value; // 0,1,2
+                else
+                {
+                    Console.WriteLine("올바르지 않은 숫자 입력입니다.");
+                }
+            }
+        }
+
+        public int size
+        {
+            get => _size;
+            set
+            {
+                if (value > 0 && value < 10000) _size = value;// 10000 이하 자연수
+                else
+                {
+                    Console.WriteLine("올바르지 않은 숫자 입력입니다.");
+                }
+            }
+        }
+
         public int ReadLine()
         {
-            return int.Parse(Console.ReadLine());
+            while (true)
+            {
+                try
+                {
+                    return int.Parse(Console.ReadLine());
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("올바르지 않은 숫자 입력입니다.");
+                }
+            }
         }
         public void WriteLine()
         {
@@ -243,28 +280,9 @@ namespace CSharpExam
             Console.WriteLine("Circle: 1");
             Console.WriteLine("Rectangle: 2");
             Console.Write("Please Input number: ");
-
-            while (true)
-            {
-                try
-                {
-                    Console.Write("Please Input number: ");
-                    input = Convert.ToInt32(ReadLine());
-                    Console.Write("Please Input size: ");
-                    size = Convert.ToInt32(ReadLine());
-                    if (size < 0)
-                        throw new Exception();
-                    break;
-                }
-
-                catch (Exception e)
-                {
-                    Console.WriteLine("유효하지 않은 숫자입니다.");
-                    continue;
-                }
-
-            }
-
+            input = ReadLine();
+            Console.Write("Please Input size: ");
+            size = ReadLine();
 
             Exam2.Shape S;
 
@@ -340,7 +358,7 @@ namespace CSharpExam
                     for (int j = 0; j < 2 * i + 1; ++j)
                     {
                         Console.Write("#");
-                    }
+                    }      
                     Console.WriteLine();
                 }
             }
